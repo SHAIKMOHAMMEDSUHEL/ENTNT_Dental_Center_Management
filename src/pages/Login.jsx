@@ -38,7 +38,7 @@ export default function Login() {
     e.preventDefault();
     const user = login(email, password);
     if (user) {
-      navigate(user.role === 'Admin' ? '/admin' : '/patient');
+      navigate(user.role === 'Admin' ? '/admin/dashboard' : '/patient');
     } else {
       alert('Invalid credentials');
     }
@@ -52,7 +52,7 @@ export default function Login() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ffffff', // ✅ Pure white background
+        backgroundColor: '#ffffff', 
         px: 2
       }}
     >
@@ -69,7 +69,6 @@ export default function Login() {
           backgroundColor: 'white'
         }}
       >
-        {/* Left Image Section */}
         <Box
           sx={{
             flex: 1.2,
@@ -80,7 +79,6 @@ export default function Login() {
           }}
         />
 
-        {/* Right Login Section */}
         <Box
           sx={{
             flex: 1,

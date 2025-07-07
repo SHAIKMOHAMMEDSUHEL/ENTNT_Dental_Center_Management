@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   Container, Typography, Card, Grid,
   Table, TableHead, TableRow, TableCell, TableBody,
-  Paper, TableContainer, Box, Chip, Divider
+  Paper, TableContainer, Box, Chip
 } from '@mui/material';
 import {
   MonetizationOn, EventAvailable,
@@ -118,33 +118,36 @@ export default function Dashboard() {
         ))}
       </Grid>
 
-      {/* Chart & Top Patients */}
+      {/* Full-width Chart */}
       <Grid container spacing={3} sx={{ mt: 5 }}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Typography variant="h6" gutterBottom>Status Distribution</Typography>
-          <Paper elevation={2} sx={{ p: 2 }}>
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie
-                  data={pieData}
-                  dataKey="value"
-                  nameKey="name"
-                  outerRadius={80}
-                  label
-                >
-                  {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
+          <Paper elevation={2} sx={{ p: 4, minHeight: 460 }}>
+            <Box sx={{ width: '100%', minWidth: 600, height: 400 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    dataKey="value"
+                    nameKey="name"
+                    outerRadius={150}
+                    label
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </Box>
           </Paper>
         </Grid>
 
+        {/* Top Patients */}
         <Grid item xs={12} md={6}>
           <Typography variant="h6" gutterBottom>Top Patients</Typography>
-          <Paper elevation={2}>
+          <Paper elevation={2} sx={{ p: 2 }}>
             <Table size="small">
               <TableHead>
                 <TableRow>
@@ -154,7 +157,9 @@ export default function Dashboard() {
               </TableHead>
               <TableBody>
                 {topPatients.length === 0 ? (
-                  <TableRow><TableCell colSpan={2} align="center">No data available.</TableCell></TableRow>
+                  <TableRow>
+                    <TableCell colSpan={2} align="center">No data available.</TableCell>
+                  </TableRow>
                 ) : topPatients.map(([id, count]) => (
                   <TableRow key={id}>
                     <TableCell>{getPatientName(id)}</TableCell>
