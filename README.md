@@ -171,7 +171,7 @@ npm run build
 ## 📄 License
 
 This project is open-sourced for evaluation and academic purposes only.  
-© 2025 Mohammed Suhel
+© 2025 Shaik Mohammed Suhel
 
 ---
 
@@ -186,6 +186,6 @@ This project is open-sourced for evaluation and academic purposes only.
 
 ## 📬 Contact
 
-- 📧 Email: suhelshaik.official@gmail.com  
+- 📧 Email: shaiksuhel.official@gmail.com  
 - 🔗 LinkedIn: [linkedin.com/in/shaik-mohammed-suhel-448443281](https://www.linkedin.com/in/shaik-mohammed-suhel-448443281)
 >>>>>>> b45e282 (Final project files and documentation added)
