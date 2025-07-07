@@ -122,15 +122,15 @@ export default function Dashboard() {
       <Grid container spacing={3} sx={{ mt: 5 }}>
         <Grid item xs={12}>
           <Typography variant="h6" gutterBottom>Status Distribution</Typography>
-          <Paper elevation={2} sx={{ p: 4, minHeight: 460 }}>
-            <Box sx={{ width: '100%', minWidth: 600, height: 400 }}>
+          <Paper elevation={2} sx={{ p: 2 }}>
+            <Box sx={{ width: '100%', height: { xs: 300, sm: 400 } }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={pieData}
                     dataKey="value"
                     nameKey="name"
-                    outerRadius={150}
+                    outerRadius={120}
                     label
                   >
                     {pieData.map((entry, index) => (
@@ -148,60 +148,64 @@ export default function Dashboard() {
         <Grid item xs={12} md={6}>
           <Typography variant="h6" gutterBottom>Top Patients</Typography>
           <Paper elevation={2} sx={{ p: 2 }}>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Patient</TableCell>
-                  <TableCell>Appointments</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {topPatients.length === 0 ? (
+            <TableContainer sx={{ overflowX: 'auto' }}>
+              <Table size="small">
+                <TableHead>
                   <TableRow>
-                    <TableCell colSpan={2} align="center">No data available.</TableCell>
+                    <TableCell>Patient</TableCell>
+                    <TableCell>Appointments</TableCell>
                   </TableRow>
-                ) : topPatients.map(([id, count]) => (
-                  <TableRow key={id}>
-                    <TableCell>{getPatientName(id)}</TableCell>
-                    <TableCell>{count}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {topPatients.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={2} align="center">No data available.</TableCell>
+                    </TableRow>
+                  ) : topPatients.map(([id, count]) => (
+                    <TableRow key={id}>
+                      <TableCell>{getPatientName(id)}</TableCell>
+                      <TableCell>{count}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Paper>
         </Grid>
       </Grid>
 
       {/* Upcoming Appointments */}
       <Typography variant="h6" sx={{ mt: 5, mb: 1 }}>Upcoming Appointments</Typography>
-      <TableContainer component={Paper} elevation={2}>
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>Title</TableCell>
-              <TableCell>Patient</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Type</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {upcoming.length === 0 ? (
+      <Box sx={{ overflowX: 'auto' }}>
+        <TableContainer component={Paper} elevation={2}>
+          <Table size="small">
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={5} align="center">No upcoming appointments.</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Patient</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Type</TableCell>
               </TableRow>
-            ) : upcoming.map((a) => (
-              <TableRow key={`${a.id}-${a.when}`}>
-                <TableCell>{a.title}</TableCell>
-                <TableCell>{getPatientName(a.patientId)}</TableCell>
-                <TableCell>{new Date(a.date).toLocaleString()}</TableCell>
-                <TableCell>{getStatusChip(a.status)}</TableCell>
-                <TableCell>{a.when}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {upcoming.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} align="center">No upcoming appointments.</TableCell>
+                </TableRow>
+              ) : upcoming.map((a) => (
+                <TableRow key={`${a.id}-${a.when}`}>
+                  <TableCell>{a.title}</TableCell>
+                  <TableCell>{getPatientName(a.patientId)}</TableCell>
+                  <TableCell>{new Date(a.date).toLocaleString()}</TableCell>
+                  <TableCell>{getStatusChip(a.status)}</TableCell>
+                  <TableCell>{a.when}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Container>
   );
 }
